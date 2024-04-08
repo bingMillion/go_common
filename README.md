@@ -4,7 +4,7 @@
 
 # 提供一个准确的版本号便于清晰引用--(使用tag)
 ```shell
-tagVersion=v1.0.5
+tagVersion=v1.0.6
 
 git add . 
 git commit -m "update"
