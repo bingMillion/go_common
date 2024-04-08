@@ -16,7 +16,8 @@ import (
 // sql: 要执行的sql语句
 // ossFilePath: athena会将查询结果保存到一个oss路径上。例如s3://your-bucket/your-prefix
 // localPath: 希望保存的文件名，带扩展名。例如xxx.csv
-func Download(ak, sk, bucketName, region, sql, ossFilePath, localPath string) (err error) {
+// ossFileDir: 会存在bucketName捅内的 这个路径下
+func Download(ak, sk, bucketName, region, sql, ossFilePath, localPath, ossFileDir string) (err error) {
 	sess, err := session.NewSession(&aws.Config{
 		Region:      aws.String(region),
 		Credentials: credentials.NewStaticCredentials(ak, sk, ""),
@@ -44,8 +45,8 @@ func Download(ak, sk, bucketName, region, sql, ossFilePath, localPath string) (e
 
 	_, err = downloader.Download(file,
 		&s3.GetObjectInput{
-			Bucket: aws.String(bucketName),                                         // 替换为你的 S3 桶名
-			Key:    aws.String("your-prefix/" + *output.QueryExecutionId + ".csv"), // Athena 会将查询结果保存为 QueryExecutionId.csv
+			Bucket: aws.String(bucketName),                                           // 替换为你的 S3 桶名
+			Key:    aws.String(ossFileDir + "/" + *output.QueryExecutionId + ".csv"), // Athena 会将查询结果保存为 QueryExecutionId.csv
 		})
 
 	if err != nil {
