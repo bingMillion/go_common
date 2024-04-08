@@ -4,9 +4,12 @@
 
 # 提供一个准确的版本号便于清晰引用--(使用tag)
 ```shell
-git tag v1.0.0
-git push && git push origin v1.0.0
+tagVersion=v1.0.4
 
-update to v1.0.1
-update to v1.0.2
+git add . 
+git commit -m "update"
+git tag ${tagVersion}
+git push && git push origin ${tagVersion}
+
+
 ```
